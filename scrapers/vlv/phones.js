@@ -40,7 +40,7 @@ function normalize(raw) {
 
   return {
     name,
-    cash_price: Number(raw.pricing?.selling_price) || null,
+    cash_price: Number(raw.pricing?.promo_price ?? raw.pricing?.selling_price) || null,
     installment_price: null, // vlv phones has no installment pricing
     source: "vlv",
     category: "phones",

@@ -30,7 +30,7 @@ async function fetchAllPages() {
 function normalize(raw) {
   return {
     name: (raw.product_name || "").trim(),
-    cash_price: Number(raw.pricing?.selling_price) || null,
+    cash_price: Number(raw.pricing?.promo_price ?? raw.pricing?.selling_price) || null,
     installment_price: null,
     installation_price: Number(raw.pricing?.installing_price) || null,
     source: "vlv",
