@@ -8,6 +8,7 @@ export function normalizeGamingName(raw) {
 
   // "PS VR2" or "PlayStation VR2" (no explicit "5") — all the same headset.
   name = name.replace(/\bps5?\s*vr\s*2\b/gi, "ps vr2");
+  name = name.replace(/\bps\s+vr2\s*\+?\s*horizon\b/gi, "ps vr2");
 
   // Strip storage capacity — not consistently reported across sites.
   name = name.replace(/\b\d+\s*(gb|tb)\b/gi, "");

@@ -6,6 +6,7 @@ import { loadAllCaches } from "../core/cache_manager.js";
 import { saveSnapshot, loadSnapshot, diffProducts } from "../core/price_snapshot.js";
 import { normalizeName } from "../core/normalizer.js";
 import { detectCategory } from "../core/categoryDetector.js";
+import { splitTelegramMessage } from "../core/telegram.js";
 import { runFullScraping } from "./scrapeJob.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -430,13 +431,15 @@ export async function sendCategoryNotificationsWithDelay(
 
     for (const uid of targetUsers) {
       for (const msg of cat.messages) {
-        await bot
-          .sendMessage(uid, msg, { parse_mode: "Markdown" })
-          .catch((err) =>
-            console.error(
-              `[notifications] Failed to send message to ${uid}: ${err.message}`,
-            ),
-          );
+        for (const chunk of splitTelegramMessage(msg)) {
+          await bot
+            .sendMessage(uid, chunk, { parse_mode: "Markdown" })
+            .catch((err) =>
+              console.error(
+                `[notifications] Failed to send message to ${uid}: ${err.message}`,
+              ),
+            );
+        }
       }
     }
 

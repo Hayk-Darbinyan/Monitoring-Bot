@@ -26,7 +26,7 @@ export const CATEGORY_CONFIG = {
   watches: {
     label: "⌚ Ժամացույցներ",
     brands: [
-      { label: "Apple", match: /apple|i\s*watch/i },
+      { label: "Apple", match: /apple|\bi\s*watch\b/i },
       { label: "Samsung", match: /samsung/i },
       { label: "Xiaomi", match: /xiaomi/i },
     ],
@@ -91,7 +91,7 @@ export const CATEGORY_CONFIG = {
   gaming: {
     label: "🎮 Gaming",
     brands: [
-      { label: "PlayStation", match: /\bps5\b|playstation/i },
+      { label: "PlayStation", match: /\bps[45]\b|playstation|ps\s*vr|psvr/i },
       { label: "Nintendo", match: /nintendo|switch/i },
       { label: "Xbox", match: /xbox/i },
       { label: "Meta", match: /meta\s*quest/i },
@@ -102,7 +102,7 @@ export const CATEGORY_CONFIG = {
       {
         label: "Այլ",
         match:
-          /^(?!.*(ps5|playstation|nintendo|switch|xbox|meta\s*quest|logitech|pxn|thrustmaster|hori)).+/i,
+          /^(?!.*(ps[45]|playstation|ps\s*vr|psvr|nintendo|switch|xbox|meta\s*quest|logitech|pxn|thrustmaster|hori)).+/i,
       },
     ],
   },

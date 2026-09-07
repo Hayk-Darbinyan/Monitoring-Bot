@@ -1449,7 +1449,7 @@ function getBrandGroupKey(category, message) {
   const name = message.toLowerCase();
 
   if (category === "watches") {
-    if (/apple|i\s*watch/i.test(name)) return "apple";
+    if (/apple|\bi\s*watch\b/i.test(name)) return "apple";
     if (/samsung|galaxy/i.test(name)) return "samsung";
     if (/xiaomi/i.test(name)) return "xiaomi";
     return "other";
@@ -1494,7 +1494,7 @@ function getBrandGroupKey(category, message) {
   }
 
   if (category === "gaming") {
-    if (/playstation|ps5|ps4/i.test(name)) return "playstation";
+    if (/playstation|ps[45]|ps\s*vr|psvr/i.test(name)) return "playstation";
     if (/nintendo|switch/i.test(name)) return "nintendo";
     if (/xbox/i.test(name)) return "xbox";
     if (/meta|quest|oculus/i.test(name)) return "meta";

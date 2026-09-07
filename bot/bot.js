@@ -34,6 +34,7 @@ import {
   getDysonSubgroupLabel,
 } from "../core/comparator.js";
 import { searchProducts } from "../core/search.js";
+import { splitTelegramMessage } from "../core/telegram.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -178,10 +179,12 @@ const CATEGORY_LABEL_TO_KEY = Object.fromEntries(
 
 export async function sendAlerts(messages, targetChatId = CHAT_ID) {
   for (const msg of messages) {
-    try {
-      await bot.sendMessage(targetChatId, msg, { parse_mode: "Markdown" });
-    } catch (err) {
-      console.error("[bot] ❌ Failed to send message:", err.message);
+    for (const chunk of splitTelegramMessage(msg)) {
+      try {
+        await bot.sendMessage(targetChatId, chunk, { parse_mode: "Markdown" });
+      } catch (err) {
+        console.error("[bot] ❌ Failed to send message:", err.message);
+      }
     }
   }
   await bot.sendMessage(targetChatId, "—", MAIN_KEYBOARD).catch(() => {});
@@ -230,7 +233,9 @@ async function sendCashData(chatId) {
     USER_KEYBOARD,
   );
   for (const msg of alertMessages) {
-    await bot.sendMessage(chatId, msg, { parse_mode: "Markdown" });
+    for (const chunk of splitTelegramMessage(msg)) {
+      await bot.sendMessage(chatId, chunk, { parse_mode: "Markdown" });
+    }
   }
 }
 
@@ -978,7 +983,9 @@ bot.on("message", async (msg) => {
       await bot.sendMessage(userId, header, USER_KEYBOARD);
 
       for (const msg of messages) {
-        await bot.sendMessage(userId, msg, { parse_mode: "Markdown" });
+        for (const chunk of splitTelegramMessage(msg)) {
+          await bot.sendMessage(userId, chunk, { parse_mode: "Markdown" });
+        }
       }
       return;
     }

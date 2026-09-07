@@ -78,15 +78,15 @@ export function startScheduler(bot, getApprovedUserIds) {
 
   // 09:10 AM Yerevan
   cron.schedule(
-    "20 6 * * *",
-    () => runPriceWatch("06:20"),
+    "10 9 * * *",
+    () => runPriceWatch("09:10"),
     { timezone: "Asia/Yerevan" },
   );
 
   // 13:30 PM Yerevan
   cron.schedule(
-    "20 10 * * *",
-    () => runPriceWatch("10:20"),
+    "30 13 * * *",
+    () => runPriceWatch("13:30"),
     { timezone: "Asia/Yerevan" },
   );
 
